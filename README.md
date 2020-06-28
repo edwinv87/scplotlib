@@ -1,6 +1,6 @@
 # scplotlib
 
-scplotlib is a python plotting library for the SingleCell (<https://github.com/edwinv87/singlecell>) object. It is built using Altair (<https://altair-viz.github.io/>). It can generate various plots for data stored in a SingleCell object such as:
+scplotlib is a python plotting library for the [SingleCell](https://edwinv87.github.io/singlecelldata/) object. It is built using [Altair](https://altair-viz.github.io/). It can generate various plots for data stored in a SingleCell object such as:
 
 1. Core plots - line plots, bar plots, scatter plots
 
@@ -13,3 +13,7 @@ scplotlib is a python plotting library for the SingleCell (<https://github.com/e
 To install scplotlib, run the following command
 
 `pip install scplotlib`
+
+## Documentation
+
+Coming Soon!

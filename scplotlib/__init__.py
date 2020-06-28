@@ -5,7 +5,7 @@ SCPlotLib
 A Python plotting library for SingleCell objects. This library is designed
 to provide easy functions for visualizing single-cell RNA-seq data stored
 in the SingleCell object. For more information and documentation on SingleCell
-class see https://github.com/edwinv87/singlecell. 
+class see https://github.com/edwinv87/singlecelldata. 
 
 This library can generate various plot types such as:
 
