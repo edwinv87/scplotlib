@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="scplotlib", # Replace with your own username
-    version="1.0.1",
+    version="1.0.2",
     author="Edwin Vans",
     author_email="vans.edw@gmail.com",
     description="A python package for visualizing the SingleCell data.",
