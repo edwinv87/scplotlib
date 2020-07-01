@@ -20,4 +20,4 @@ Coming Soon!
 
 ## Contact
 
-Contact the author on vans.edw@gmail.com to give feedback/suggestions for further improvements and to report issues.
+Contact the author on <vans.edw@gmail.com> to give feedback/suggestions for further improvements and to report issues.
