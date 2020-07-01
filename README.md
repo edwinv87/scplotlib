@@ -16,7 +16,7 @@ To install scplotlib, run the following command
 
 ## Documentation
 
-Coming Soon!
+Check the project homepage for documentation.
 
 ## Contact
 
