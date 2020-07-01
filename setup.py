@@ -11,7 +11,7 @@ setuptools.setup(
     description="A python package for visualizing the SingleCell data.",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/edwinv87/scplotlib",
+    url="https://edwinv87.github.io/scplotlib/",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
