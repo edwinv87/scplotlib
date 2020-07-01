@@ -21,11 +21,12 @@ def PlotOutlierScores(
 
     bar = BarPlot(
         df, 
-        x = 'Cells:O', 
+        x = 'Cells:O',
         y = outlier_score,
         color_by = color_by,
         bar_color = 'red',
-        bar_size = 1
+        bar_size = 1,
+        xlabel = 'Cells',
         )
 
     line = LinePlot(
@@ -37,7 +38,8 @@ def PlotOutlierScores(
         size_by = None,
         line_color = 'black',
         line_style = [2, 4],
-        line_size = 1
+        line_size = 1,
+        xlabel = 'Cells'
     )
 
     
