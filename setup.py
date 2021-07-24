@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="scplotlib", # Replace with your own username
+    name="scplotlib", 
     version="1.0.2",
     author="Edwin Vans",
     author_email="vans.edw@gmail.com",
