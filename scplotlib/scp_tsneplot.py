@@ -1,13 +1,8 @@
-import altair as alt
-
-
 from sklearn.manifold import TSNE
 from .scp_core import ScatterPlot
 
 
-from .scp_themes import nature_theme
-alt.themes.register("nature_theme", nature_theme)
-alt.themes.enable("nature_theme")
+from .scp_themes import get_marker
 
 def ComputeTSNE(    sc, 
                     tsne_dist_metric,
@@ -42,14 +37,12 @@ def ComputeTSNE(    sc,
 
 
 # Produces a t-SNE scatter plot
-def tSNEPlot(   sc, 
+def tSNEPlot(   axis,
+                sc, 
                 color_by = None, 
                 marker_by = None, 
-                size_by = None,
-                marker_color = '#E64B35FF',
-                marker_shape = 'circle',
-                marker_size = 2, 
-                marker_thickness = 1, 
+                marker_style = '.',
+                marker_size = 50,
                 tsne_dist_metric = 'euclidean',
                 tsne_init = 'random',
                 tsne_perplexity = 30,
@@ -69,16 +62,43 @@ def tSNEPlot(   sc,
                         tsne_early_exaggeration,
                         tsne_random_state)
 
-    chart = ScatterPlot(    sc.celldata,
-                            x = 't-SNE 1',
-                            y = 't-SNE 2',
-                            color_by = color_by,
-                            marker_by = marker_by,
-                            size_by = size_by,
-                            marker_color = marker_color,
-                            marker_shape = marker_shape,
-                            marker_size = marker_size,
-                            marker_thickness = marker_thickness
-                            )
-                            
-    return chart.configure_axis(grid = False).configure_view(strokeWidth = 0)
+    if (type(marker_by) == str):
+        cell_labels = sc.getNumericCellLabels(marker_by)
+        cell_types = sc.getDistinctCellTypes(marker_by)
+
+        
+        if (type(cell_types[0]) != str):
+            for i in range(len(cell_types)):
+                cell_types[i] = str(cell_types[i])
+
+        for i in range(1, len(cell_types) + 1):
+            mask = (cell_labels == i)
+            axis = ScatterPlot( axis,
+                                sc[mask.tolist()],
+                                x = 't-SNE 1',
+                                y = 't-SNE 2',
+                                color_by = color_by,
+                                marker_style = get_marker(i-1),
+                                marker_size = marker_size,
+                                legend_title = cell_types[i-1] + '-'
+                                )
+
+        axis.legend(title = 'batch-cell type')
+
+    else:
+        axis = ScatterPlot(     axis,
+                                sc,
+                                x = 't-SNE 1',
+                                y = 't-SNE 2',
+                                color_by = color_by,
+                                marker_style = marker_style,
+                                marker_size = marker_size,
+                                legend_title = ""
+                                )
+
+        axis.legend(title = 'cell type')
+
+    axis.set_ylabel('t-SNE 2')
+    axis.set_xlabel('t-SNE 1')
+
+    return axis

@@ -1,14 +1,9 @@
 import numpy as np
-import altair as alt
-
-
-alt.data_transformers.disable_max_rows()
 
 from sklearn.metrics import silhouette_samples
 
-from .scp_themes import nature_theme
-alt.themes.register("nature_theme", nature_theme)
-alt.themes.enable("nature_theme")
+from .scp_themes import get_color
+
 
 # Compute Silhouette Score
 def ComputeSilhouette(sc, cluster_by):
@@ -19,33 +14,63 @@ def ComputeSilhouette(sc, cluster_by):
 
     sil_scores = silhouette_samples(X.T, cell_labels)
 
-    sc.addCellData(col_data = sil_scores, col_name = 'Silhouette Index')
+    sc.addCellData(col_data = sil_scores, col_name = 'Silhouette_Scores')
 
     return sc
 
     
 
-def SilhouettePlot(sc, cluster_by):
+def SilhouettePlot(axis, sc, cluster_by):
 
     sc = ComputeSilhouette(sc, cluster_by)
 
-    df = sc.celldata.loc[:, [cluster_by, 'Silhouette Index']]
-    df = df.sort_values(by=[cluster_by, 'Silhouette Index'])
-    idx = np.arange(df.shape[0]) + 1 # Change so that first cell index is one
-    df.insert(0, "Cells", idx, True)
+    silhouette_scores = sc.getCellData('Silhouette_Scores')
 
-    chart = alt.Chart(df).mark_area().encode(
-        x = alt.X('Silhouette Index', title='Silhouette Index'),
-        y = alt.Y("Cells:O", axis=alt.Axis(labelOverlap=True, ticks=False)),
-        color = alt.Color(cluster_by, type = 'ordinal', scale=alt.Scale(range = 'category'))
-    ).properties(
-        height = 250,
-        width = 200
-    )
+    cell_labels = sc.getNumericCellLabels(cluster_by)
 
-    rule = alt.Chart(df).mark_rule(color='black').encode(
-        x = alt.X('Silhouette Index', title = '', type = "quantitative", aggregate = "mean"),
-        strokeDash = alt.value([2, 4])
-    )
+    cell_types = sc.getDistinctCellTypes(cluster_by)
 
-    return (chart + rule).configure_axis(grid=False).configure_view(strokeWidth=0)
+
+    if (type(cell_types[0]) != str):
+
+        for i in range(len(cell_types)):
+
+            cell_types[i] = str(cell_types[i])
+
+
+    y_lower = 10
+
+    for i in range(1, len(cell_types) + 1):
+
+        mask = (cell_labels == i)
+
+        cluster_sil_scores = silhouette_scores[mask]
+
+        cluster_sil_scores.sort()
+
+        cluster_n = cluster_sil_scores.shape[0]
+
+        y_upper = y_lower + cluster_n
+
+        axis.fill_betweenx(np.arange(y_lower, y_upper), 0, cluster_sil_scores, facecolor=get_color(i-1), edgecolor=get_color(i-1), label = cell_types[i-1])
+
+        # axis.text(-0.05, y_lower + 0.5 * cluster_n, cell_types[i-1])
+
+        y_lower = y_upper + 10
+
+
+    axis.set_title("Silhouette Plot")
+
+    axis.set_xlabel("silhouette coefficient")
+
+    axis.set_ylabel("clusters")
+
+    axis.legend(title = 'cell types', bbox_to_anchor=(1.2, 1))
+
+    axis.axvline(x=np.mean(silhouette_scores), color="red", linestyle="--")
+
+    axis.set_yticks([])
+    #axis.set_xticks([-0.1, 0, 0.2, 0.4, 0.6, 0.8, 1])
+
+
+    return axis

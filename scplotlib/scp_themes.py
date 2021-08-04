@@ -1,4 +1,4 @@
-def nature_theme():
+def get_color(i):
 
     # Colors
     nature_palette = [  "#E64B35FF", 
@@ -33,10 +33,19 @@ def nature_theme():
                         "#B09C8599"
                    ]
 
-    return {
-        "config": {
-            "range": {
-                "category": nature_palette
-            }
-        }
-    }
+    n = len(nature_palette)
+
+
+    return nature_palette[i%n]
+    
+
+
+def get_marker(i):
+
+    # Markers
+    markers = ["o", "^", "s", "*", "p", "X"]
+
+    n = len(markers)
+
+
+    return markers[i%n]

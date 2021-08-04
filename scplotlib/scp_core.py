@@ -1,142 +1,82 @@
-import altair as alt
+# Imports
+
+from .scp_themes import get_color
+
+"""
+========================
+Method Name: ScatterPlot
+========================
+
+Method Description: This method implements the proposed FeatClust approach. 
 
 
-import pandas as pd
+Parameters
+========== 
 
-from .scp_themes import nature_theme
-alt.themes.register("nature_theme", nature_theme)
-alt.themes.enable("nature_theme")
+axis                -   A matplotlib axis handle
+sc                  -   A single cell object which contains the data and metadata of genes and cells
 
-# Scatter Plot
 
-def ScatterPlot(    dataframe, 
+
+Returns
+=======
+
+axis                -   The matplotlib axis handle
+
+"""
+
+def ScatterPlot(    axis,
+                    sc, 
                     x,
                     y,
                     color_by, 
-                    marker_by, 
-                    size_by,
-                    marker_color,
-                    marker_shape,
-                    marker_size, 
-                    marker_thickness,
-                    xlabel = None,
-                    ylabel = None
+                    marker_style,
+                    marker_size,
+                    legend_title
                 ):
 
-    if (type(color_by) == type(None)):
-        color = alt.value(marker_color)
-    else:
-        color = alt.Color(color_by, type = 'ordinal', scale=alt.Scale(range = 'category'))    
 
-    if (type(marker_by) == type(None)):
-        marker = alt.value(marker_shape)
-    else:
-        marker = alt.Shape(marker_by, type = 'ordinal')
+    X = sc.getCellData(x)
 
-    if (type(size_by) == type(None)):
-        size = alt.value(marker_size)
-    else:
-        size = alt.Size(size_by, type = 'quantitative')
+    Y = sc.getCellData(y)
     
-    if (type(xlabel) == type(None)):
-        xlabel = x
 
-    if (type(ylabel) == type(None)):
-        ylabel = y
+    # To Do: Check if color_by is valid
 
+    if (type(color_by) == str):
 
-    chart = alt.Chart(dataframe).mark_point().encode(
-        x = alt.X(x, title=xlabel),
-        y = alt.Y(y, title=ylabel),
-        shape = marker,
-        color = color,
-        size = size,
-        strokeWidth = alt.value(marker_thickness)
-    )
+        cell_labels = sc.getNumericCellLabels(color_by)
 
-    return chart
+        cell_types = sc.getDistinctCellTypes(color_by)
 
+        if (type(cell_types[0]) != str):
 
+            for i in range(len(cell_types)):
 
-# Bar Plot
+                cell_types[i] = str(i)
 
-def BarPlot(    
-    dataframe,
-    x, 
-    y, 
-    color_by,
-    bar_color,
-    bar_size,
-    xlabel = None,
-    ylabel = None
-):
+        for i in range(1, len(cell_types) + 1):
 
-    if (type(color_by) == type(None)):
-        color = alt.value(bar_color)
+            mask = (cell_labels == i)
+
+            axis.scatter(   x = X[mask],
+                            y = Y[mask],
+                            c = get_color(i-1),
+                            marker = marker_style,
+                            s = marker_size,
+                            label = legend_title + cell_types[i-1] 
+                            )
+
     else:
-        color = alt.Color(color_by, type = 'ordinal', scale=alt.Scale(range = 'category'))
+        
+        axis.scatter(   x = X,
+                        y = Y,
+                        c = get_color(0),
+                        marker = marker_style,
+                        s = marker_size,
+                        label = legend_title + 'cells' 
+                        )
 
-    if (type(xlabel) == type(None)):
-        xlabel = x
+    # Temporarily remove marker size argument 26/07/2021
 
-    if (type(ylabel) == type(None)):
-        ylabel = y
-
-    chart = alt.Chart(dataframe).mark_bar().encode(
-        #x = alt.X(x, title=xlabel, type='ordinal', axis=alt.Axis(labelOverlap=True, ticks=False)),
-        x = alt.X(x, title=xlabel, axis=alt.Axis(ticks=False)),
-        y = alt.Y(y, title=ylabel, type = 'quantitative'),
-        color = color,
-        size = alt.value(bar_size)
-    )
-
-    return chart
-
-
-
-# Line Plot
-
-def LinePlot(
-    dataframe, 
-    x,
-    y,
-    color_by, 
-    style_by, 
-    size_by,
-    line_color,
-    line_style,
-    line_size,
-    xlabel = None,
-    ylabel = None
-):
-
-    if (type(color_by) == type(None)):
-        color = alt.value(line_color)
-    else:
-        color = alt.Color(color_by, type = 'ordinal', scale=alt.Scale(range = 'category'))    
-
-    if (type(style_by) == type(None)):
-        style = alt.value(line_style)
-    else:
-        style = style_by
-
-    if (type(size_by) == type(None)):
-        size = alt.value(line_size)
-    else:
-        size = alt.Size(size_by, type = 'quantitative')
-
-    if (type(xlabel) == type(None)):
-        xlabel = x
-
-    if (type(ylabel) == type(None)):
-        ylabel = y
-
-    chart = alt.Chart(dataframe).mark_line().encode(
-        x = alt.X(x, title=xlabel),
-        y = alt.Y(y, title=ylabel),
-        color = color,
-        size = size,
-        strokeDash = style
-    )
-
-    return chart
+    return axis
