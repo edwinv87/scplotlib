@@ -4,6 +4,28 @@ from .scp_core import ScatterPlot
 
 from .scp_themes import get_marker
 
+"""
+=======================
+Method Name: ComputePCA
+=======================
+
+Computes and saves the first two principal components of the data in the 
+celldata assay of the single cell object.
+
+
+Parameters
+========== 
+
+sc                  -   A single cell object which contains the data and metadata of genes and cells
+
+Returns
+=======
+
+sc                  -   The single cell object with the first two principal components of the 
+                        data saved in the celldata assay.
+
+"""
+
 def ComputePCA(sc):
 
     X = sc.getCounts()
@@ -16,6 +38,52 @@ def ComputePCA(sc):
     sc.addCellData(col_data = y, col_name = 'PC2')
 
     return sc
+
+
+"""
+====================
+Method Name: PCAPlot
+====================
+
+This method plots a 2D scatter graph using the matplotlib axis handle where x values
+represent the first principal component and y values represent the second principal component in the
+data. 
+
+
+Parameters
+========== 
+
+axis                -   A matplotlib axis handle.
+
+sc                  -   A single cell object which contains the data and metadata of genes and cells.
+
+x                   -   A string for the column name in celldata assay of single cell (sc) object that 
+                        contains the x-axis values.
+
+y                   -   A string for the column name in celldata assay of single cell (sc) object that 
+                        contains the y-axis values.
+
+color_by            -   A string for the column name in celldata assay of single cell (sc) object that 
+                        contains the cell clusters. A different color will be applied for each cluster. 
+                        Clusters can be represented by string or numeric value. Default None.
+
+marker_by           -   A string for the column name in celldata assay of single cell (sc) object that 
+                        contains the cell clusters. A different marker style will be applied for each 
+                        cluster. Clusters can be represented by string or numeric value. Default None.
+
+marker_style        -   A string representing matplotlib markers. Refer to matplotlib documentation for
+                        marker options. Default '.'.
+
+marker_size         -   Integer representing matplotlib marker size. Refer to the matplotlib documentation 
+                        for marker sizes. Default 50.
+
+
+Returns
+=======
+
+axis                -   The matplotlib axis handle.
+
+"""
 
 def PCAPlot(    axis,
                 sc, 

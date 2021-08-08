@@ -7,15 +7,27 @@ from .scp_themes import get_color
 Method Name: PlotOutlierScores
 ==============================
 
-Method Description: This method implements the proposed FeatClust approach. 
+Creates a bar chart showing the outlier score for each cell. The outlier scores are represented by the values 
+in the celldata column of the sc object pointed to by the outlier_score argument. Bars representing the cells 
+are colored according to its clusters pointed to by the color_by argument. A threshold line is also plotted.
 
 
 Parameters
 ========== 
 
-axis                -   A matplotlib axis handle
-sc                  -   A single cell object which contains the data and metadata of genes and cells
+axis                -   A matplotlib axis handle.
 
+sc                  -   A single cell object which contains the data and metadata of genes and cells.
+
+outlier_score       -   A string for the column name in celldata assay of single cell (sc) object that 
+                        contains the cell outlier scores.
+
+color_by            -   A string for the column name in celldata assay of single cell (sc) object that 
+                        contains the cell clusters. A different color will be applied for each cluster. 
+                        Clusters can be represented by string or numeric value.
+
+threshold           -   A string for the column name in celldata assay of single cell (sc) object that 
+                        contains the threshold for classifying a cell as an outlier.
 
 
 Returns

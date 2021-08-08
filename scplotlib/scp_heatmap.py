@@ -4,7 +4,44 @@ import numpy as np
 
 from .scp_themes import get_color
 
+"""
+===========================
+Method Name: GeneExpHeatmap
+===========================
 
+Plots a heatmap to show the expression of the top genes in the data acorss all the cells. The gene 
+expression will be sorted by the feature importance values stored in the genedata assay referred to 
+by the sort_by argument.
+
+
+Parameters
+========== 
+
+axis                -   A matplotlib axis handle.
+
+sc                  -   A single cell object which contains the data and metadata of genes and cells.
+
+color_by            -   A string for the column name in celldata assay of single cell (sc) object that 
+                        contains the cell clusters. A different color will be applied for each cluster. 
+                        Clusters can be represented by string or numeric value. 
+
+sort_by             -   A string for the column name in genedata assay of single cell (sc) object that 
+                        contains the values to sort the genes by.
+
+name_by             -   A string for the column name in genedata assay of single cell (sc) object that 
+                        contains the names of the genes in the data.
+
+top_num_genes       -   The number of top genes to shown in the heatmap plot. Default 10.
+
+sort                -   String representing whether to sort in ascending or descending order. Default 'descending'.
+
+
+Returns
+=======
+
+axis                -   The matplotlib axis handle.
+
+"""
 
 def GeneExpHeatmap(axis, sc, color_by, sort_by, name_by, top_num_genes = 10, sort = 'descending'):
     

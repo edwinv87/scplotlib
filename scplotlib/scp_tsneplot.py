@@ -4,6 +4,43 @@ from .scp_core import ScatterPlot
 
 from .scp_themes import get_marker
 
+
+"""
+========================
+Method Name: ComputeTSNE
+========================
+
+Computes the first two reduced dimension of the data using t-SNE and saves it in the celldata assay 
+of the single cell object. 
+
+
+Parameters
+========== 
+
+sc                  -   A single cell object which contains the data and metadata of genes and cells.
+
+tsne_dist_metric    -   The metric to use when calculating distance between instances in a feature array.
+
+tsne_init           -   Initialization of the t-SNE embedding. 
+
+tsne_perplexity     -   The perplexity is related to the number of nearest neighbors that is used in other manifold learning algorithms.
+
+tsne_iterations     -   Maximum number of iterations for the optimization.
+
+tsne_learning_rate  -   The learning rate for t-SNE.
+
+tsne_early_exaggeration -   Controls how tight natural clusters in the original space are in the embedded space and how much space will be between them.
+
+tsne_random_state   -   Determines the random number generator.
+
+
+Returns
+=======
+
+sc                  -   The single cell object.
+
+"""
+
 def ComputeTSNE(    sc, 
                     tsne_dist_metric,
                     tsne_init,
@@ -37,6 +74,59 @@ def ComputeTSNE(    sc,
 
 
 # Produces a t-SNE scatter plot
+
+"""
+=====================
+Method Name: tSNEPlot
+=====================
+
+Computes the first two reduced dimension of the data using t-SNE and saves it in the celldata assay 
+of the single cell object. 
+
+
+Parameters
+========== 
+
+axis                -   A matplotlib axis handle.
+
+sc                  -   A single cell object which contains the data and metadata of genes and cells.
+
+color_by            -   A string for the column name in celldata assay of single cell (sc) object that 
+                        contains the cell clusters. A different color will be applied for each cluster. 
+                        Clusters can be represented by string or numeric value. Default None.
+
+marker_by           -   A string for the column name in celldata assay of single cell (sc) object that 
+                        contains the cell clusters. A different marker style will be applied for each 
+                        cluster. Clusters can be represented by string or numeric value. Default None.
+
+marker_style        -   A string representing matplotlib markers. Refer to matplotlib documentation for
+                        marker options. Default '.'.
+
+marker_size         -   Integer representing matplotlib marker size. Refer to the matplotlib documentation 
+                        for marker sizes. Default 50.
+
+tsne_dist_metric    -   The metric to use when calculating distance between instances in a feature array.
+
+tsne_init           -   Initialization of the t-SNE embedding. 
+
+tsne_perplexity     -   The perplexity is related to the number of nearest neighbors that is used in other manifold learning algorithms.
+
+tsne_iterations     -   Maximum number of iterations for the optimization.
+
+tsne_learning_rate  -   The learning rate for t-SNE.
+
+tsne_early_exaggeration -   Controls how tight natural clusters in the original space are in the embedded space and how much space will be between them.
+
+tsne_random_state   -   Determines the random number generator.
+
+
+Returns
+=======
+
+axis                -   A matplotlib axis handle.
+
+"""
+
 def tSNEPlot(   axis,
                 sc, 
                 color_by = None, 

@@ -6,6 +6,30 @@ from .scp_themes import get_color
 
 
 # Compute Silhouette Score
+"""
+==============================
+Method Name: ComputeSilhouette
+==============================
+
+Computes the first silhouette coefficient of each cell in the data and saves it in the 
+celldata assay of the single cell object.
+
+
+Parameters
+========== 
+
+sc                  -   A single cell object which contains the data and metadata of genes and cells.
+
+cluster_by          -   A string for the column name in celldata assay of single cell (sc) object that 
+                        contains the cell clusters.
+
+Returns
+=======
+
+sc                  -   The single cell object with the silhouette coeffiecients stored in the celldata assay.
+
+"""
+
 def ComputeSilhouette(sc, cluster_by):
 
     cell_labels = sc.getNumericCellLabels(cluster_by)
@@ -19,6 +43,30 @@ def ComputeSilhouette(sc, cluster_by):
     return sc
 
     
+"""
+===========================
+Method Name: SilhouettePlot
+===========================
+
+Generates a silhouette plot from the cell clusters in data represented by the 'cluster_by' argument.
+
+
+Parameters
+========== 
+
+axis                -   A matplotlib axis handle.
+
+sc                  -   A single cell object which contains the data and metadata of genes and cells.
+
+cluster_by          -   A string for the column name in celldata assay of single cell (sc) object that 
+                        contains the cell clusters.
+
+Returns
+=======
+
+axis                -   The matplotlib axis handle.
+
+"""
 
 def SilhouettePlot(axis, sc, cluster_by):
 

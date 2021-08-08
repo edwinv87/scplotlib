@@ -7,21 +7,38 @@ from .scp_themes import get_color
 Method Name: ScatterPlot
 ========================
 
-Method Description: This method implements the proposed FeatClust approach. 
+This method plots a 2D scatter graph using the matplotlib axis handle.
 
 
 Parameters
 ========== 
 
 axis                -   A matplotlib axis handle
-sc                  -   A single cell object which contains the data and metadata of genes and cells
 
+sc                  -   A single cell object which contains the data and metadata of genes and cells
+x                   -   A string for the column name in celldata assay of single cell (sc) object that 
+                        contains the x-axis values.
+
+y                   -   A string for the column name in celldata assay of single cell (sc) object that 
+                        contains the y-axis values.
+
+color_by            -   A string for the column name in celldata assay of single cell (sc) object that 
+                        contains the cell clusters. A different color will be applied for each 
+                        cluster. Clusters can be represented by string or numeric value.
+
+marker_style        -   A string representing matplotlib markers. Refer to matplotlib documentation for
+                        marker options.
+
+marker_size         -   Integer representing matplotlib marker size. Refer to the matplotlib documentation 
+                        for marker sizes.
+
+legend_title        -   String representing the legend category. 
 
 
 Returns
 =======
 
-axis                -   The matplotlib axis handle
+axis                -   The matplotlib axis handle.
 
 """
 
