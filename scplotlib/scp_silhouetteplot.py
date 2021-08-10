@@ -109,9 +109,9 @@ def SilhouettePlot(axis, sc, cluster_by):
 
     axis.set_xlabel("silhouette coefficient")
 
-    axis.set_ylabel("clusters")
+    axis.set_ylabel("cells")
 
-    axis.legend(title = 'cell types', bbox_to_anchor=(1.2, 1))
+    axis.legend(title = 'clusters', bbox_to_anchor=(1.2, 1))
 
     axis.axvline(x=np.mean(silhouette_scores), color="red", linestyle="--")
 
