@@ -1,8 +1,6 @@
 from sklearn.decomposition import PCA
-from .scp_core import ScatterPlot
+from .scp_core import Scatter2D
 
-
-from .scp_themes import get_marker
 
 """
 =======================
@@ -89,42 +87,14 @@ def PCAPlot(    axis,
 
     sc = ComputePCA(sc)
     
-    if (type(marker_by) == str):
-        cell_labels = sc.getNumericCellLabels(marker_by)
-        cell_types = sc.getDistinctCellTypes(marker_by)
-
-        
-        if (type(cell_types[0]) != str):
-            cell_types = cell_types.astype(str)
-
-        for i in range(1, len(cell_types) + 1):
-            mask = (cell_labels == i)
-            axis = ScatterPlot( axis,
-                                sc[mask.tolist()],
-                                x = 'PC1',
-                                y = 'PC2',
-                                color_by = color_by,
-                                marker_style = get_marker(i-1),
-                                marker_size = marker_size,
-                                legend_title = cell_types[i-1] + '-'
-                                )
-
-        axis.legend(title = 'batch-cell type')
-
-    else:
-        axis = ScatterPlot(     axis,
-                                sc,
-                                x = 'PC1',
-                                y = 'PC2',
-                                color_by = color_by,
-                                marker_style = marker_style,
-                                marker_size = marker_size,
-                                legend_title = ""
-                                )
-
-        axis.legend(title = 'cell type')
-
-    axis.set_ylabel('PC2')
-    axis.set_xlabel('PC1')
+    axis = Scatter2D(   axis = axis,
+                        sc = sc, 
+                        x = 'PC1',
+                        y = 'PC2',
+                        color_by = color_by, 
+                        marker_by = marker_by, 
+                        marker_style = marker_style,
+                        marker_size = marker_size
+                        )
 
     return axis
