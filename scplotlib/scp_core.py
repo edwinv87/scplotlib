@@ -61,21 +61,15 @@ def ScatterPlot(    axis,
     # To Do: Check if color_by is valid
 
     if (type(color_by) == str):
-
         cell_labels = sc.getNumericCellLabels(color_by)
-
         cell_types = sc.getDistinctCellTypes(color_by)
 
         if (type(cell_types[0]) != str):
-
             for i in range(len(cell_types)):
-
-                cell_types[i] = str(i)
+                cell_types[i] = str(cell_types[i])
 
         for i in range(1, len(cell_types) + 1):
-
             mask = (cell_labels == i)
-
             axis.scatter(   x = X[mask],
                             y = Y[mask],
                             c = get_color(i-1),
