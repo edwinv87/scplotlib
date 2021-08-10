@@ -77,7 +77,7 @@ def PlotOutlierScores(
         axis.bar(x[mask], out_score[mask], color = get_color(i-1), label = cell_types[i-1])
 
     
-    axis.legend(title = 'cell types', bbox_to_anchor=(1.2, 1))
+    axis.legend(title = 'clusters', bbox_to_anchor=(1.2, 1))
 
 
     axis.plot(x, thres, color = 'black', linestyle = 'dashed')
