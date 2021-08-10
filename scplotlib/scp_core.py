@@ -13,9 +13,10 @@ This method plots a 2D scatter graph using the matplotlib axis handle.
 Parameters
 ========== 
 
-axis                -   A matplotlib axis handle
+axis                -   A matplotlib axis handle.
 
-sc                  -   A single cell object which contains the data and metadata of genes and cells
+sc                  -   A single cell object which contains the data and metadata of genes and cells.
+
 x                   -   A string for the column name in celldata assay of single cell (sc) object that 
                         contains the x-axis values.
 
@@ -63,10 +64,10 @@ def ScatterPlot(    axis,
     if (type(color_by) == str):
         cell_labels = sc.getNumericCellLabels(color_by)
         cell_types = sc.getDistinctCellTypes(color_by)
+        
 
         if (type(cell_types[0]) != str):
-            for i in range(len(cell_types)):
-                cell_types[i] = str(cell_types[i])
+                cell_types = cell_types.astype(str)
 
         for i in range(1, len(cell_types) + 1):
             mask = (cell_labels == i)
