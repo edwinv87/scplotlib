@@ -60,8 +60,7 @@ def GeneExpHeatmap(axis, sc, color_by, sort_by, name_by, top_num_genes = 10, sor
     cell_types = sc.getDistinctCellTypes(color_by)
 
     if (type(cell_types[0]) != str):
-            for i in range(len(cell_types)):
-                cell_types[i] = str(cell_types[i])
+            cell_types = cell_types.astype(str)
 
 
     # Sort according to the gene score
