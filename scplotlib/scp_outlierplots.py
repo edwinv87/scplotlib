@@ -64,9 +64,7 @@ def PlotOutlierScores(
 
     if (type(cell_types[0]) != str):
 
-        for i in range(len(cell_types)):
-
-            cell_types[i] = str(cell_types[i])
+        cell_types = cell_types.astype(str)
 
 
     x = np.arange(1, out_score.shape[0] + 1)
