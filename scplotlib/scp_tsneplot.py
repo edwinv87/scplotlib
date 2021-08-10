@@ -158,8 +158,7 @@ def tSNEPlot(   axis,
 
         
         if (type(cell_types[0]) != str):
-            for i in range(len(cell_types)):
-                cell_types[i] = str(cell_types[i])
+            cell_types = cell_types.astype(str)
 
         for i in range(1, len(cell_types) + 1):
             mask = (cell_labels == i)
