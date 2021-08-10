@@ -81,9 +81,7 @@ def SilhouettePlot(axis, sc, cluster_by):
 
     if (type(cell_types[0]) != str):
 
-        for i in range(len(cell_types)):
-
-            cell_types[i] = str(cell_types[i])
+        cell_types = cell_types.astype(str)
 
 
     y_lower = 10
