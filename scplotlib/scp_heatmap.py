@@ -106,6 +106,6 @@ def GeneExpHeatmap(axis, sc, color_by, sort_by, name_by, top_num_genes = 10, sor
         mask = (cell_labels == i)
         axis.plot(cell_idx[mask], y[mask], color = get_color(i-1), linewidth = 7, label = cell_types[i-1])
 
-    axis.legend(title = 'cell type', bbox_to_anchor=(1.5, 1))
+    axis.legend(title = 'clusters', bbox_to_anchor=(1.5, 1))
 
     return axis
