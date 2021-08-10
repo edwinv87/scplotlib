@@ -57,12 +57,6 @@ axis                -   A matplotlib axis handle.
 
 sc                  -   A single cell object which contains the data and metadata of genes and cells.
 
-x                   -   A string for the column name in celldata assay of single cell (sc) object that 
-                        contains the x-axis values.
-
-y                   -   A string for the column name in celldata assay of single cell (sc) object that 
-                        contains the y-axis values.
-
 color_by            -   A string for the column name in celldata assay of single cell (sc) object that 
                         contains the cell clusters. A different color will be applied for each cluster. 
                         Clusters can be represented by string or numeric value. Default None.
@@ -101,8 +95,7 @@ def PCAPlot(    axis,
 
         
         if (type(cell_types[0]) != str):
-            for i in range(len(cell_types)):
-                cell_types[i] = str(cell_types[i])
+            cell_types = cell_types.astype(str)
 
         for i in range(1, len(cell_types) + 1):
             mask = (cell_labels == i)
